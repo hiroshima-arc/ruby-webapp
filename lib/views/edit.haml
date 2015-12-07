@@ -1,0 +1,10 @@
+%h1 Editing Task
+
+!= haml :_errors, locals: {task: @task}
+
+%form.form-horizontal(method='post'){action: "/tasks/#{@task.id}"}
+ != haml :_form, locals: {task: @task}
+ .form-group
+  .col-sm-offset-2.col-sm-10
+   %input(name='_method' type='hidden' value='put')
+   %input.btn.btn-default(name='commit' type='submit' value='Update')
