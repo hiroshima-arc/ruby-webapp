@@ -1,4 +1,3 @@
-require 'rack'
-require './sinatra_modular'
+require 'application'
 
-run Application
+run Todo::Application
