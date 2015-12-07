@@ -1,0 +1,18 @@
+%h1 Listing Tasks
+
+%table.table.table-striped.table-hover.table-bordered
+ %thead
+  %tr
+   %th ID
+   %th Name
+   %th Content
+   %th Status
+   %th Created Time
+ %tbody
+  - @tasks.each do |task|
+   %tr
+    %td= task.id
+    %td= task.name
+    %td= task.content
+    %td= task.status_name
+    %td= task.created_at.strftime('%Y/%m/%d %H:%M:%S')
