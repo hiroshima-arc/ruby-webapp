@@ -67,6 +67,12 @@ module Todo
           opt.on_tail('-h','--help','Show this message') {|v| help_sub_command(opt) }
         end
 
+        sub_command_parsers['server'] = OptionParser.new do |opt|
+          opt.banner = 'Usage: server <args>'
+          opt.on('-p VAL','--port=VAL', 'Port(default:9292)') {|v| options[:port] = v }
+          opt.on_tail('-h', '--help','Show this message')     {|v| help_sub_command(opt) }
+        end
+
         sub_command_parsers
       end
 
@@ -81,7 +87,8 @@ module Todo
               {name: 'create -n name -c content',              summary: 'Create Todo Task'},
               {name: 'update id -n name -c content -s status', summary: 'Update Todo Task'},
               {name: 'list -s status',                         summary: 'List   Todo Tasks'},
-              {name: 'delete id',                              summary: 'Delete Todo Task'}
+              {name: 'delete id',                              summary: 'Delete Todo Task'},
+              {name: 'server -p port',                         summary: 'Start http server process'}
           ]
           opt.banner = "Usage: #{opt.program_name} [-h|--help] [-v|--version] <command> [<args>]"
           opt.separator ''
