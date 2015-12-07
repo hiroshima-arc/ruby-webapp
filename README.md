@@ -13,20 +13,24 @@ RubyWebアプリケーション開発
 | docker         |1.9.1    |             |
 
 # 構成 #
-## 環境セットアップ
-
-### Vagarnt
+## 開発環境セットアップ
 
     $ vagrant up
     $ vagrant ssh
-    $ cd /vagrant
-    
-### Docker
-    
-    $ docker build --no-cache=true --rm -t hiroshima-arc/ruby-webapp .
-    $ docker run -it -v $(pwd):/app -p 9292:9292 --name app hiroshima-arc/ruby-webapp
+    $ cd /vagrant        
+    $ docker build --no-cache=true --rm -t hiroshima-arc/ruby-webapp:dev -f Dockerfile-dev .
+    $ docker run -it -v $(pwd):/app -p 9292:9292 --name app-dev hiroshima-arc/ruby-webapp:dev
+    $ bundle
     $ rackup -o 0.0.0.0
     
+## 本番環境セットアップ
+    
+    $ vagrant up
+    $ vagrant ssh
+    $ cd /vagrant        
+    $ docker build --no-cache=true --rm -t hiroshima-arc/ruby-webapp .
+    $ docker run -d -p 9292:9292 --name app-prd hiroshima-arc/ruby-webapp
+            
 ## Webアプリケーション開発
 
 ### Webインターフェースの追加

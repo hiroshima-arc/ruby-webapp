@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    todo (1.0.0)
+    todo (2.0.0)
       activerecord (~> 3.2.0)
       haml (~> 4.0.0)
       sinatra (~> 1.4.0)

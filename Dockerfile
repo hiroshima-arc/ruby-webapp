@@ -3,16 +3,17 @@ FROM ruby:2.2.1
 MAINTAINER hiroshima-arc
 
 RUN apt-get update -y && apt-get install -y \
-    sqlite3 \
-    curl
+    sqlite3
 
-RUN gem install bundler rack sinatra haml
+RUN gem install bundler
 
 WORKDIR /app
 
-VOLUME /app
+ADD . /app
+ENV RACK_ENV production
+RUN bundle install
 
-EXPOSE 9292 4567
+EXPOSE 9292
 
-ENTRYPOINT ["/bin/bash"]
+ENTRYPOINT ["/usr/local/bundle/bin/bundle","exec","exe/todo","server"]
 
