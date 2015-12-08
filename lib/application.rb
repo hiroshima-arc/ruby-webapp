@@ -1,7 +1,6 @@
 # coding: utf-8
 
 require 'sinatra/base'
-require 'haml'
 
 require 'todo/db'
 require 'todo/task'
@@ -11,7 +10,7 @@ module Todo
 
     use Rack::MethodOverride
 
-    set :haml, escape_html: true
+    set :erb, escape_html: true
 
     helpers do
       def error_class(task, name)
@@ -54,13 +53,13 @@ module Todo
         end
       end
 
-      haml :index
+      erb :index
     end
 
     get '/tasks/new' do
       @task = Task.new
 
-      haml :new
+      erb :new
     end
 
     post '/tasks' do
@@ -71,7 +70,7 @@ module Todo
       rescue ActiveRecord::RecordInvalid => e
         @task = e.record
 
-        haml :new
+        erb :new
       end
     end
 
@@ -79,7 +78,7 @@ module Todo
       begin
         @task = Task.find(params[:id])
 
-        haml :edit
+        erb :edit
       rescue ActiveRecord::RecordNotFound
         error 404
       end
@@ -98,7 +97,7 @@ module Todo
       rescue ActiveRecord::RecordInvalid => e
         @task = e.record
 
-        haml :edit
+        erb :edit
       rescue ActiveRecord::RecordNotFound
         error 4040
       end
@@ -116,7 +115,7 @@ module Todo
     end
 
     not_found do
-      haml :not_found
+      erb :not_found
     end
   end
 end
