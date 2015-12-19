@@ -1,16 +1,16 @@
- <h1>Listing Tasks</h1>
+ <h1>タスク一覧</h1>
   <div>
-    <a href='/tasks/new'>New</a>
+    <a href='/tasks/new'>新規タスク</a>
   </div>
   <table class='table table-striped table-hover table-bordered'>
     <thead>
     <tr>
       <th>ID</th>
-      <th>Name</th>
-      <th>Content</th>
-      <th>Status</th>
-      <th>Created Time</th>
-      <th colspan='2'>Action</th>
+      <th>タスク名</th>
+      <th>内容</th>
+      <th>状態</th>
+      <th>作成日</th>
+      <th colspan='2'>アクション</th>
     </tr>
     </thead>
     <tbody>
@@ -22,12 +22,12 @@
        <td><%= task.status_name %></td>
        <td><%= task.created_at.strftime('%Y/%m/%d %H:%M:%S') %></td>
        <td>
-         <a href=<%= "/tasks/#{task.id}/edit" %>>Edit</a>
+         <a href=<%= "/tasks/#{task.id}/edit" %>>編集</a>
        </td>
        <td>
          <form action=<%= "/tasks/#{task.id}" %> class='form-inline' method='post'>
            <input name='_method' type='hidden' value='delete'>
-           <input class='btn btn-danger' onclick='return confirm("Delete Task?")' type='submit' value='Delete'>
+           <input class='btn btn-danger' onclick='return confirm("削除しますか?")' type='submit' value='削除する'>
          </form>
        </td>
      </tr>
