@@ -44,7 +44,7 @@ module Todo
         case @status
           when 'not_yet'
             @tasks = @tasks.status_is_not_yet
-          when 'done'
+          when 'don'
             @tasks = @tasks.status_is_done
           when 'pending'
             @tasks = @tasks.status_is_pending
