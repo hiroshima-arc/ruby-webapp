@@ -4,6 +4,7 @@ require 'sinatra/base'
 
 require 'todo/db'
 require 'todo/task'
+require 'pry'
 
 module Todo
   class Application < Sinatra::Base
@@ -40,11 +41,12 @@ module Todo
 
     get '/tasks' do
       @tasks = Task.order('created_at DESC')
+      binding.pry
       if @status = params[:status]
         case @status
           when 'not_yet'
             @tasks = @tasks.status_is_not_yet
-          when 'don'
+          when 'done'
             @tasks = @tasks.status_is_done
           when 'pending'
             @tasks = @tasks.status_is_pending
