@@ -41,7 +41,6 @@ module Todo
 
     get '/tasks' do
       @tasks = Task.order('created_at DESC')
-      binding.pry
       if @status = params[:status]
         case @status
           when 'not_yet'
