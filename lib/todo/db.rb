@@ -12,7 +12,15 @@ module Todo
     # データベースへの接続とテーブルの作成を行う
     # @return [void]
     def self.prepare
-      database_path = File.join(ENV['HOME'], '.todo', 'todo.sqlite3')
+
+      case ENV['RACK_ENV']
+        when 'test'
+          database_path = File.join('./', 'db', 'test.sqlite3')
+        when 'development'
+          database_path = File.join('./', 'db', 'development.sqlite3')
+        else
+          database_path = File.join(ENV['HOME'], '.todo', 'todo.sqlite3')
+      end
 
       connect_database database_path
       create_table_if_not_exists database_path
