@@ -43,24 +43,24 @@ describe Todo do
     end
 
     context 'やることが登録されている場合' do
-      it '初期値はNOT_YETである' do
-        expect(Todo::Task.where(@params)[0].status_name).to eq('NOT_YET')
+      it '初期値は' do
+        expect(Todo::Task.where(@params)[0].status_name).to eq('未完了')
       end
 
-      it 'やりかけのタスクはPENDINGである' do
+      it 'やりかけのタスクは' do
         id = Todo::Task.where(@params)[0].id
         wip = Todo::Task.find(id)
         wip.status = Todo::Task::PENDING
         wip.save
-        expect(Todo::Task.where(@params)[0].status_name).to eq('PENDING')
+        expect(Todo::Task.where(@params)[0].status_name).to eq('ペンディング')
       end
 
-      it '完了したタスクはDONEである' do
+      it '完了したタスクは' do
         id = Todo::Task.where(@params)[0].id
         wip = Todo::Task.find(id)
         wip.status = Todo::Task::DONE
         wip.save
-        expect(Todo::Task.where(@params)[0].status_name).to eq('DONE')
+        expect(Todo::Task.where(@params)[0].status_name).to eq('完了')
       end
 
     end
