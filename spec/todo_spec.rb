@@ -8,6 +8,7 @@ describe Todo do
   it 'やることが登録できる' do
     Todo::DB.prepare
     params = {name:'test',content:'contents'}
+    Todo::Task.where(params).delete_all
     Todo::Task.create!(name: params[:name], content: params[:content])
     expect(Todo::Task.all.count).to eq(1)
   end
