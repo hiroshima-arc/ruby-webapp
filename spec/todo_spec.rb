@@ -17,7 +17,7 @@ describe Todo do
     end
 
     it 'やることが登録できる' do
-      expect(Todo::Task.all.count).to eq(1)
+      expect(Todo::Task.where(@params).count).to eq(1)
     end
 
     it 'やることが検索できる' do
@@ -32,14 +32,15 @@ describe Todo do
       task.name = 'test2'
       task.save
       expect(task.name).to eq('test2')
-      Todo::Task.where(name:'test2').delete_all
+      task.name = 'test'
+      task.save
     end
 
     it 'やることが削除できる' do
       id = Todo::Task.where(@params)[0].id
       task = Todo::Task.find(id)
       task.destroy
-      expect(Todo::Task.all.count).to eq(0)
+      expect(Todo::Task.where(@params).count).to eq(0)
     end
 
     context 'やることが登録されている場合' do
