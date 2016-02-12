@@ -5,7 +5,10 @@ describe Todo do
     expect(Todo::VERSION).not_to be nil
   end
 
-  it 'does something useful' do
-    expect(false).to eq(true)
+  it 'やることが登録できる' do
+    Todo::DB.prepare
+    params = {name:'test',content:'contents'}
+    Todo::Task.create!(name: params[:name], content: params[:content])
+    expect(Todo::Task.all.count).to eq(1)
   end
 end
