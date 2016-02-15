@@ -38,24 +38,28 @@ describe Todo do
     end
 
     context 'やることが登録されている場合' do
-      it '初期値は' do
-        expect(Todo::Task.where(@params)[0].status_name).to eq('未完了')
+      initial_name = '未完了'
+      wip_name = 'ペンディング'
+      done_name = '完了'
+
+      it "初期値は#{initial_name}" do
+        expect(Todo::Task.where(@params)[0].status_name).to eq(initial_name)
       end
 
-      it 'やりかけのタスクは' do
+      it "やりかけのタスクは#{wip_name}" do
         id = Todo::Task.where(@params)[0].id
         wip = Todo::Task.find(id)
         wip.status = Todo::Task::PENDING
         wip.save
-        expect(Todo::Task.where(@params)[0].status_name).to eq('ペンディング')
+        expect(Todo::Task.where(@params)[0].status_name).to eq(wip_name)
       end
 
-      it '完了したタスクは' do
+      it "完了したタスクは#{done_name}" do
         id = Todo::Task.where(@params)[0].id
         wip = Todo::Task.find(id)
         wip.status = Todo::Task::DONE
         wip.save
-        expect(Todo::Task.where(@params)[0].status_name).to eq('完了')
+        expect(Todo::Task.where(@params)[0].status_name).to eq(done_name)
       end
 
     end
