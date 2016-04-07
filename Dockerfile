@@ -7,9 +7,9 @@ RUN apt-get update -y && apt-get install -y \
 
 RUN gem install bundler
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
-ADD . /app
+ADD . /usr/src/app
 ENV RACK_ENV production
 RUN bundle install
 
