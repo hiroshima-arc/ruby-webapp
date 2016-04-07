@@ -10,7 +10,8 @@ RubyWebアプリケーション開発
 | ruby           |2.2.1-p85    |             |
 | bootstrap      |3.3.6        |             |
 | vagrant        |1.7.4    |             |
-| docker         |1.9.1    |             |
+| docker         |1.11.0-rc3    |             |
+| docker-compose |1.7.0rc1    |             |
 
 # 構成 #
 ## 開発環境セットアップ
