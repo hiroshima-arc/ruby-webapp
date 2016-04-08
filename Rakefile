@@ -8,7 +8,6 @@ YARD::Rake::YardocTask.new
 task :default => :spec
 
 require 'rake/clean'
-
 CLEAN.include('meals/*')
 CLOBBER.include('reports/*')
 
@@ -65,10 +64,75 @@ DESC
   }
 end
 
-BACKUP_DIR = "backups"
+BACKUP_DIR = 'backups'
 
 directory BACKUP_DIR
-desc "レポートをバックアップする"
+desc 'レポートをバックアップする'
 task :backup => BACKUP_DIR do
-  sh "cp reports/* backups/"
+  sh 'cp reports/* backups/'
+end
+
+require 'yaml'
+
+LOG_DIR = "#{Dir.pwd}/logs/"
+LOG_EXT = '.log'
+LOGS = [
+    {name:'daily'},
+    {name:'sunday'},
+    {name:'monday'},
+    {name:'tuesday'},
+    {name:'wednesday'},
+    {name:'thursday'},
+    {name:'friday'},
+    {name:'saturday'}
+]
+LOG_FILES = LOGS.map { |m| LOG_DIR + m[:name] + LOG_EXT}
+
+desc 'ログファイル生成'
+task :setup_log => [:create_log_directory,:create_log_file] do
+  description = <<DESC
+rice,100
+misosoup,200
+DESC
+
+  LOG_FILES.each do |log|
+    File.open log , 'w' do |f|
+      f.write description
+    end
+  end
+end
+
+task :create_log_directory => LOG_DIR do
+end
+directory LOG_DIR
+
+task :create_log_file => LOG_FILES do
+end
+LOG_FILES.each do |log_name|
+  file log_name do
+    puts "#{log_name}がありません"
+    puts "#{log_name}を作成します"
+    sh "touch #{log_name}"
+  end
+end
+
+desc '今までの食事の名前とカロリー履歴ファイルを作成'
+file 'menu_history.yml' => LOG_FILES do |t|
+  sh "cat #{t.prerequisites.join(' ')} >> #{OUTPUT_DIR}/#{t.name}" # Windowsの場合はcatをtypeに変更
+end
+
+rule '.yml' => '.log' do |t|
+  data = {}
+  File.open(t.source).each do |line|
+    data.merge!(Hash[*line.chomp!.split(/,/)])
+  end
+
+  File.open(t.name, 'w') {|f|
+    f.write data.to_yaml
+  }
+end
+
+desc '一週間の食事の名前とカロリー履歴ファイルを作成'
+file 'weekly_menu_history.yml' => LOG_FILES do |t|
+  sh "cat #{t.prerequisites.join(' ')} >> #{OUTPUT_DIR}/#{t.name}"
 end
