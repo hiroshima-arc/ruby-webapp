@@ -64,3 +64,11 @@ DESC
     f.write output_str
   }
 end
+
+BACKUP_DIR = "backups"
+
+directory BACKUP_DIR
+desc "レポートをバックアップする"
+task :backup => BACKUP_DIR do
+  sh "cp reports/* backups/"
+end
