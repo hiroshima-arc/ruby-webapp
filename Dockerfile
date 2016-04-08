@@ -14,5 +14,5 @@ RUN bundle install
 ENV RACK_ENV production
 
 EXPOSE 9292
-ENTRYPOINT ["/usr/local/bundle/bin/bundle","exec","exe/todo","server"]
+CMD ["/usr/local/bundle/bin/bundle","exec","exe/todo","server"]
 
