@@ -138,3 +138,10 @@ require 'rake/clean'
 CLEAN.include('works/*')
 CLEAN.include('logs/*')
 CLOBBER.include('reports/*')
+
+BACKUP_DIR = 'backups'
+desc 'レポートをバックアップする'
+task :backup => BACKUP_DIR do
+  sh 'cp reports/* backups/'
+end
+directory BACKUP_DIR
