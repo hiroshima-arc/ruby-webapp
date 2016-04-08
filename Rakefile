@@ -7,6 +7,11 @@ YARD::Rake::YardocTask.new
 
 task :default => :spec
 
+require 'rake/clean'
+
+CLEAN.include('meals/*')
+CLOBBER.include('reports/*')
+
 TXT_DIR = "#{Dir.pwd}/meals/"
 OUTPUT_DIR = "#{Dir.pwd}/reports/"
 OUTPUT_FILE = OUTPUT_DIR + "report_#{Time.now.strftime('%Y%m%d')}.txt"
