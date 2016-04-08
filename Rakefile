@@ -133,3 +133,8 @@ desc '一週間の作業の名前と作業時間履歴ファイルを作成'
 file 'weekly_work_history.yml' => LOG_FILES do |t|
   sh "cat #{t.prerequisites.join(' ')} >> #{LOG_DIR}/#{t.name}"
 end
+
+require 'rake/clean'
+CLEAN.include('works/*')
+CLEAN.include('logs/*')
+CLOBBER.include('reports/*')
