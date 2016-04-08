@@ -67,3 +67,69 @@ DESC
     f.write output_str
   }
 end
+
+require 'yaml'
+
+LOG_DIR = "#{Dir.pwd}/logs/"
+LOG_EXT = '.log'
+LOGS = [
+    {name:'daily'},
+    {name:'sunday'},
+    {name:'monday'},
+    {name:'tuesday'},
+    {name:'wednesday'},
+    {name:'thursday'},
+    {name:'friday'},
+    {name:'saturday'}
+]
+DAILY_LOG_FILE = LOG_DIR + LOGS[0][:name] + LOG_EXT
+LOG_FILES = LOGS.map { |m| LOG_DIR + m[:name] + LOG_EXT}
+
+desc 'ログファイル生成'
+task :create_log => [:create_log_directory,:create_log_file] do
+  description = <<DESC
+desgin,8h
+coding,20h
+DESC
+
+  LOG_FILES.each do |log|
+    File.open log , 'w' do |f|
+      f.write description
+    end
+  end
+end
+
+task :create_log_directory => LOG_DIR do
+end
+directory LOG_DIR
+
+task :create_log_file => LOG_FILES do
+end
+LOG_FILES.each do |log_name|
+  file log_name do
+    puts "#{log_name}がありません"
+    puts "#{log_name}を作成します"
+    sh "touch #{log_name}"
+  end
+end
+
+desc '今までの作業の名前と作業時間ファイルを作成'
+file 'work_history.yml' => DAILY_LOG_FILE do |t|
+  sh "cat #{t.prerequisites.join(' ')} >> #{LOG_DIR}/#{t.name}" # Windowsの場合はcatをtypeに変更
+end
+
+rule '.yml' => '.log' do |t|
+  data = {}
+  File.open(t.source).each do |line|
+    data.merge!(Hash[*line.chomp!.split(/,/)])
+  end
+
+  File.open(t.name, 'w') {|f|
+    f.write data.to_yaml
+  }
+end
+
+desc '一週間の作業の名前と作業時間履歴ファイルを作成'
+file 'weekly_work_history.yml' => LOG_FILES do |t|
+  sh "cat #{t.prerequisites.join(' ')} >> #{LOG_DIR}/#{t.name}"
+end
