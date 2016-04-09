@@ -6,3 +6,10 @@ services:
       - .:/usr/src/app
     ports:
       - "9292:9292"
+  doc:
+    build: .
+    command: [bundle,exec,yard,server]
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "8808:8808"

@@ -7,6 +7,13 @@ require 'todo/task'
 require 'pry'
 
 module Todo
+  #
+  # ==ToDoアプリケーションクラス
+  #
+  # Author:: hiroshima-arc
+  # Version:: 0.0.1
+  # License:: Ruby License
+  #
   class Application < Sinatra::Base
 
     use Rack::MethodOverride

@@ -10,9 +10,10 @@ WORKDIR /usr/src/app
 
 ADD . /usr/src/app
 RUN bundle install
+RUN bundle exec yard
 
 ENV RACK_ENV production
 
-EXPOSE 9292
+EXPOSE 9292 8808
 CMD ["/usr/local/bundle/bin/bundle","exec","exe/todo","server"]
 

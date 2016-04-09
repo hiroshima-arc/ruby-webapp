@@ -6,14 +6,17 @@ module Todo
   # @author hiroshima-arc
   class Command
 
+    # @param argv [String] オプション
     def self.run(argv)
       new(argv).execute
     end
 
+    # @param argv [String] オプション
     def initialize(argv)
       @argv = argv
     end
 
+    # @raise [RuntimeError] アプリケーション実行中になんらかの例外が発生した場合に発生
     def execute
       options     = Options.parse!(@argv)
       sub_command = options.delete(:command)
@@ -45,16 +48,21 @@ module Todo
       abort "Error: #{e.message}"
     end
 
+    # @param name [String] タスク名
+    # @param content [String] タスク内容
     def create_task(name, content)
       # タスク作成時のstatusはデフォルト値が使われてNOT_YETとなる
       Task.create!(name: name, content: content).reload
     end
 
+    # @param id [Integer] id
     def delete_task(id)
       task = Task.find(id)
       task.destroy
     end
 
+    # @param id [Integer] id
+    # @param attributes [Hash{status => String}] ステータス
     def update_task(id, attributes)
       if status_name = attributes[:status]
         attributes[:status] = Task::STATUS.fetch(status_name.upcase)
@@ -66,6 +74,7 @@ module Todo
       task.reload
     end
 
+    # @param status_name [String] ステータス名
     def find_tasks(status_name)
       all_tasks = Task.order('created_at DESC')
 
