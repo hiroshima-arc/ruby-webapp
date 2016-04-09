@@ -4,16 +4,15 @@ MAINTAINER hiroshima-arc
 
 RUN apt-get update -y && apt-get install -y \
     sqlite3
-
 RUN gem install bundler
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
-ADD . /app
-ENV RACK_ENV production
+ADD . /usr/src/app
 RUN bundle install
 
-EXPOSE 9292
+ENV RACK_ENV production
 
-ENTRYPOINT ["/usr/local/bundle/bin/bundle","exec","exe/todo","server"]
+EXPOSE 9292
+CMD ["/usr/local/bundle/bin/bundle","exec","exe/todo","server"]
 

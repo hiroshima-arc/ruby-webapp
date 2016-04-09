@@ -111,4 +111,8 @@ build/
 ### Vagrant template
 .vagrant/
 
+<<<<<<< HEAD
 *.sqlite3
+=======
+db/*.sqlite3
+>>>>>>> 7e613021c01ebf87514d766892f9aa1def7953d3
