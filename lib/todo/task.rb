@@ -21,7 +21,7 @@ module Todo
 
     # ステータスの名称と数値の組み合わせの値
     STATUS = {
-        'NOT_YET' => NOT_YET,
+        '未完了' => NOT_YET,
         'DONE'    => DONE,
         'PENDING' => PENDING
     }.freeze
