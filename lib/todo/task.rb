@@ -22,8 +22,8 @@ module Todo
     # ステータスの名称と数値の組み合わせの値
     STATUS = {
         '未完了' => NOT_YET,
-        'DONE'    => DONE,
-        'PENDING' => PENDING
+        '完了'    => DONE,
+        '保留中' => PENDING
     }.freeze
 
     validates :name,    presence:     true, length: {maximum: 140}
