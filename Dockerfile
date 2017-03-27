@@ -1,4 +1,4 @@
-FROM ruby:2.2.1
+FROM ruby:2.4.0
 
 MAINTAINER hiroshima-arc
 
